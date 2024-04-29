@@ -45,3 +45,23 @@ func (s *Service) FindByEmail(email string) (*User, error) {
 	}
 	return u, nil
 }
+
+func (s *Service) Update(user *User) (int, error) {
+	if u, _ := s.repo.FindById(user.ID); u == nil {
+		return 0, errors.New("id not exits")
+	}
+	hashedPassword, err := s.encrypt.BCrypt(user.Password)
+	if err != nil {
+		return 0, err
+	}
+	u := User{
+		ID:       user.ID,
+		Name:     user.Name,
+		Email:    user.Email,
+		Password: hashedPassword,
+	}
+	if _, err := s.repo.Update(&u); err != nil {
+		return 0, err
+	}
+	return 1, nil
+}
