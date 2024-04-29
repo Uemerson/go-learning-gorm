@@ -31,6 +31,18 @@ func main() {
 	if _, err := s.Create("Uemerson", "uemerson@mail.com", "password"); err != nil {
 		fmt.Println(err)
 	}
+	u, err := s.FindByEmail("uemerson@mail.com")
+	if err == nil {
+		fmt.Println(u)
+	}
+	if _, err := s.Update(&user.User{
+		ID:       u.ID,
+		Email:    u.Email,
+		Name:     "new_name",
+		Password: "new_password",
+	}); err == nil {
+		fmt.Println("update user")
+	}
 	if u, err := s.FindByEmail("uemerson@mail.com"); err == nil {
 		fmt.Println(u)
 	}
