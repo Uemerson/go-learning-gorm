@@ -46,4 +46,7 @@ func main() {
 	if u, err := s.FindByEmail("uemerson@mail.com"); err == nil {
 		fmt.Println(u)
 	}
+	if _, err := s.DeleteById(u); err == nil {
+		fmt.Println("user", u.ID, "was deleted")
+	}
 }
