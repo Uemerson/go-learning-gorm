@@ -65,3 +65,13 @@ func (s *Service) Update(user *User) (int, error) {
 	}
 	return 1, nil
 }
+
+func (s *Service) DeleteById(user *User) (int, error) {
+	if u, _ := s.repo.FindById(user.ID); u == nil {
+		return 0, errors.New("id not exits")
+	}
+	if _, err := s.repo.DeleteById(user); err != nil {
+		return 0, err
+	}
+	return 1, nil
+}
