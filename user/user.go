@@ -12,6 +12,7 @@ type Repository interface {
 	FindByEmail(email string) (*User, error)
 	FindById(id string) (*User, error)
 	Update(u *User) (int, error)
+	DeleteById(u *User) (int, error)
 	AutoMigrate()
 }
 
@@ -27,4 +28,5 @@ type UseCase interface {
 	Create(name, email, password string) (int, error)
 	FindByEmail(email string) (*User, error)
 	Update(user User) (int, error)
+	DeleteById(user User) (int, error)
 }
